@@ -165,7 +165,7 @@ export default async (context) => {
 
     await syncVuex(store, newLocale, app.i18n.getLocaleMessage(newLocale))
 
-    if (!initialSetup && strategy !== STRATEGIES.NO_PREFIX) {
+    if (strategy !== STRATEGIES.NO_PREFIX) {
       const redirectPath = app.switchLocalePath(newLocale) || app.localePath('index', newLocale)
       const redirectRoute = app.router.resolve(redirectPath).route
 
@@ -240,7 +240,7 @@ export default async (context) => {
 
       if (browserLocale) {
         // Handle cookie option to prevent multiple redirections
-        if (alwaysRedirect || (route.path == '/' && (!useCookie || !getLocaleCookie()))) {
+        if (alwaysRedirect || route.path === '/') {
           let redirectToLocale = fallbackLocale
 
           // Use browserLocale if we support it, otherwise use fallbackLocale
