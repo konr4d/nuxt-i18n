@@ -252,8 +252,12 @@ export default async (context) => {
             if (redirectToLocale !== app.i18n.locale) {
               // We switch the locale before redirect to prevent loops
               await app.i18n.setLocale(redirectToLocale)
-            } else if (useCookie && !getLocaleCookie()) {
-              app.i18n.setLocaleCookie(redirectToLocale)
+            } else {
+              if (useCookie && !getLocaleCookie()) {
+                app.i18n.setLocaleCookie(redirectToLocale)
+              }
+              const redirectPath = app.switchLocalePath(browserLocale) || app.localePath('index', browserLocale)
+              redirect(redirectPath)
             }
           }
 
