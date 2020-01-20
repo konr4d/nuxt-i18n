@@ -27,9 +27,15 @@ function localePath (route, locale) {
 
   if (!locale) return
 
-  // If route parameters is a string, use it as the route's name
+  // If route parameter is a string, check if it's a path or name of route.
   if (typeof route === 'string') {
-    route = { name: route }
+    if (route[0] === '/') {
+      // If route parameter is a path, create route object with path.
+      route = { path: route }
+    } else {
+      // Else use it as route name.
+      route = { name: route }
+    }
   }
 
   const localizedRoute = Object.assign({}, route)
@@ -120,8 +126,8 @@ function switchLocalePath (locale) {
   return path
 }
 
-function getRouteBaseName () {
-  const { route } = this
+function getRouteBaseName (givenRoute) {
+  const route = givenRoute || this.route
   if (!route.name) {
     return null
   }
