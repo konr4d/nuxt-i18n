@@ -1,4 +1,4 @@
-import VueI18n, { IVueI18n } from 'vue-i18n'
+import VueI18n from 'vue-i18n'
 import { MetaInfo } from 'vue-meta'
 
 /**
@@ -26,6 +26,7 @@ declare namespace NuxtVueI18n {
 
     interface DetectBrowserLanguageInterface {
       useCookie?: boolean
+      cookieDomain?: string | null
       cookieKey?: string
       alwaysRedirect?: boolean
       fallbackLocale?: Locale | null
